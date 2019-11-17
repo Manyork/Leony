@@ -1,0 +1,9 @@
+DELIMITER $$
+USE `inventario`$$
+CREATE PROCEDURE `StpEliminarProveedor`($pIDPROVEEDOR varchar(45))
+BEGIN
+DELETE FROM proveedor
+WHERE IDPROVEEDOR=$pIDPROVEEDOR;
+END$$
+
+DELIMITER ;
