@@ -45,7 +45,7 @@ public class ClsConexion {
         try {
             //Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/dbsupermercado", "root", "xxx");
              //Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/dbsupermercado", "root", "root");
-            Conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventario", "root", "Dario501");
+            Conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventario", "root", "root");
              //Conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/dbsupermercado099", "root", "root");
            out.println("Conexion Exitosa");
         } catch (SQLException ex) {
