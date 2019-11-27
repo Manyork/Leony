@@ -44,18 +44,29 @@
                 <form name="f1" action="frmMantenimientoProveedor.jsp">
                     <%
                         String vresult = "";
-                        String vIDPROVEEDOR = request.getParameter("TxtIDPROVEEDOR");
-                        String vNOMBRE = request.getParameter("TxtNOMBRE");
-                        String vDIRECCION = request.getParameter("TxtDIRECCION");
-                        String vTELEFONO = request.getParameter("TxtTELEFONO");
-                        String vCORREO_ELECTRONICO = request.getParameter("TxtCORREO_ELECTRONICO");
-                        String vFECHA_REGISTRO = request.getParameter("TxtFECHA_REGISTRO");
-                        String vPAIS = request.getParameter("TxtPAIS");
-                        String vCEDULA_JURIDICA = request.getParameter("TxtCEDULA_JURIDICA");
+                        String vIDPROVEEDOR = "";
+                        String vNOMBRE =  "";
+                        String vDIRECCION =  "";
+                        String vTELEFONO =  "";
+                        String vCORREO_ELECTRONICO =  "";
+                        String vFECHA_REGISTRO =  "";
+                        String vPAIS =  "";
+                        String vCEDULA_JURIDICA =  "";
 
                         try {
+                            
+                            
+                             vresult = "";
+                         vIDPROVEEDOR = request.getParameter("TxtIDPROVEEDOR");
+                         vNOMBRE = request.getParameter("TxtNOMBRE");
+                         vDIRECCION = request.getParameter("TxtDIRECCION");
+                         vTELEFONO = request.getParameter("TxtTELEFONO");
+                         vCORREO_ELECTRONICO = request.getParameter("TxtCORREO_ELECTRONICO");
+                         vFECHA_REGISTRO = request.getParameter("TxtFECHA_REGISTRO");
+                         vPAIS = request.getParameter("TxtPAIS");
+                         vCEDULA_JURIDICA = request.getParameter("TxtCEDULA_JURIDICA");
                             if (vIDPROVEEDOR.equals("null")) {
-
+                                        
                             } else {
                                 ClsProveedor proveedor = new ClsProveedor();
                                 proveedor.Conectar();
@@ -94,15 +105,23 @@
                             }
 
                         } catch (Exception Ex) {
-                            vIDPROVEEDOR = "";
-                            vNOMBRE = "";
-                            System.out.println("<script>alert('" + Ex + " " + vresult + "');</script>");
+                            
+                            vresult = "";
+                                        vIDPROVEEDOR = "";
+                                        vNOMBRE =  "";
+                                        vDIRECCION =  "";
+                                        vTELEFONO =  "";
+                                        vCORREO_ELECTRONICO =  "";
+                                        vFECHA_REGISTRO =  "";
+                                        vPAIS =  "";
+                                        vCEDULA_JURIDICA =  "";
+                                                       System.out.println("<script>alert('" + Ex + " " + vresult + "');</script>");
                         }
 
                     %>
-                    <style type="text/css">
-                        @media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}</style>
-                    <div class="tg-wrap"><table class="tg">
+            
+                    <div class="tg-wrap">
+                        <table class="tg">
                             <tr>
                                 <td class="tg-0lax" colspan="6">
                                     Datos del Proveedor
@@ -110,25 +129,25 @@
                             </tr>
                             <tr>
                                 <td class="tg-0lax"><label for="proveedor">IDProveedor</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtIDPROVEEDOR" value="<%=vIDPROVEEDOR%>"></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtIDPROVEEDOR" value="<%=vIDPROVEEDOR%>" required></td>
                                 <td class="tg-0lax"><label for="nombre">Nombre</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtNOMBRE" value="<%=vNOMBRE%>"></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtNOMBRE" value="<%=vNOMBRE%>" required></td>
                                 <td class="tg-0lax"><label for="dir">Dirección</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtDIRECCION" value="<%=vDIRECCION%>"></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtDIRECCION" value="<%=vDIRECCION%>" required></td>
                             </tr>
                             <tr>
                                 <td class="tg-0lax"><label for="Tel">Teléfono</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtTELEFONO" value="<%= vTELEFONO%>"></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtTELEFONO" value="<%= vTELEFONO%>" required></td>
                                 <td class="tg-0lax"><label for="correo">Correo Electrónico</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtCORREO_ELECTRONICO" value="<%=vCORREO_ELECTRONICO%>" ></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtCORREO_ELECTRONICO" value="<%=vCORREO_ELECTRONICO%>" required></td>
                                 <td class="tg-0lax"><label for="fecha">Fecha Registro</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="date" name="TxtFECHA_REGISTRO" value="<%= vFECHA_REGISTRO%>" ></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="date" name="TxtFECHA_REGISTRO" value="<%= vFECHA_REGISTRO%>" required></td>
                             </tr>
                             <tr>
                                 <td class="tg-0lax"><label for="pais">País</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtPAIS" value="<%=vPAIS%>"></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtPAIS" value="<%=vPAIS%>" required></td>
                                 <td class="tg-0lax"><label for="ced">Cédula Jurídica</label></td>
-                                <td class="tg-0lax" colspan="3"><input id="rcorners1" type="text" name="TxtCEDULA_JURIDICA" value="<%=vCEDULA_JURIDICA%>"></td>
+                                <td class="tg-0lax" colspan="3"><input id="rcorners1" type="text" name="TxtCEDULA_JURIDICA" value="<%=vCEDULA_JURIDICA%>" required></td>
                             </tr>
                             <tr>
                                 <td class="tg-0lax" colspan="6">
