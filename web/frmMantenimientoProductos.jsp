@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="classes.ClsProductos"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="classes.ClsProveedor"%>
 <%@ page import="java.sql.*, javax.sql.*, java.io.*, javax.naming.*" %>
@@ -30,9 +31,9 @@
                 <div id="menubar">
                     <ul id="menu">
                         <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
-                        <li><a href="index.html">Home</a></li>
-                        <li><a class="active" href="frmMantenimientoProveedor.jsp">PROVEEDORES</a></li>
-                        <li><a href="frmMantenimientoProductos.jsp">PRODUCTOS</a></li>
+                        <li class="selected"><a href="index.html">Home</a></li>
+                        <li><a href="frmMantenimientoProveedor.jsp">PROVEEDORES</a></li>
+                        <li><a class="active" href="frmMantenimientoProductos.jsp">PRODUCTOS</a></li>
                         <li><a href="#contact">DETALLES</a></li>
                         <li><a href="#marca">MARCA</a></li>
                         <li><a href="frmMantenimientoClientes.jsp">CLIENTES</a></li>
@@ -41,38 +42,41 @@
             </div>
             <div id="content_header"></div>
             <div id="site_content">
-                <form name="f1" action="frmMantenimientoProveedor.jsp">
+                <form name="f1" action="frmMantenimientoProductos.jsp">
                     <%
                         String vresult = "";
-                        String vIDPROVEEDOR = "";
+                        String vIDPRODUCTO = "";
                         String vNOMBRE = "";
-                        String vDIRECCION = "";
-                        String vTELEFONO = "";
-                        String vCORREO_ELECTRONICO = "";
-                        String vFECHA_REGISTRO = "";
-                        String vPAIS = "";
-                        String vCEDULA_JURIDICA = "";
+                        String vDESCRIPCION = "";
+                        String vPRECIO_UND = "";
+                        String vSTOCK = "";
+                        String vPESO = "";
+                        String vPRESENTACION = "";
+                        String vMARCA = "";
+                        String vPROVEEDOR = "";
 
                         try {
 
                             vresult = "";
-                            vIDPROVEEDOR = request.getParameter("TxtIDPROVEEDOR");
+                            vIDPRODUCTO = request.getParameter("TxtIDPRODUCTO");
                             vNOMBRE = request.getParameter("TxtNOMBRE");
-                            vDIRECCION = request.getParameter("TxtDIRECCION");
-                            vTELEFONO = request.getParameter("TxtTELEFONO");
-                            vCORREO_ELECTRONICO = request.getParameter("TxtCORREO_ELECTRONICO");
-                            vFECHA_REGISTRO = request.getParameter("TxtFECHA_REGISTRO");
-                            vPAIS = request.getParameter("TxtPAIS");
-                            vCEDULA_JURIDICA = request.getParameter("TxtCEDULA_JURIDICA");
-                            if (vIDPROVEEDOR.equals("null")) {
+                            vDESCRIPCION = request.getParameter("TxtDESCRIPCION");
+                            vPRECIO_UND = request.getParameter("TxtPRECIO_UND");
+                            vSTOCK = request.getParameter("TxtSTOCK");
+                            vPESO = request.getParameter("TxtPESO");
+                            vPRESENTACION = request.getParameter("TxtPRESENTACION");
+                            vMARCA = request.getParameter("TxtMARCA");
+                            vPROVEEDOR = request.getParameter("TxtPROVEEDOR");
+
+                            if (vIDPRODUCTO.equals("null")) {
 
                             } else {
-                                ClsProveedor proveedor = new ClsProveedor();
-                                proveedor.Conectar();
+                                ClsProductos producto = new ClsProductos();
+                                producto.Conectar();
                                 switch (request.getParameter("btnop")) {
                                     case "s":
-                                        vresult = proveedor.GuardarProveedor(vIDPROVEEDOR, vNOMBRE, vDIRECCION, vTELEFONO, vCORREO_ELECTRONICO, Date.valueOf(vFECHA_REGISTRO), vPAIS, vCEDULA_JURIDICA);
-                                        proveedor.desconectar();
+                                        vresult = producto.GuardarProductos(vIDPRODUCTO, vNOMBRE, vDESCRIPCION, Float.parseFloat(vPRECIO_UND), Integer.parseInt(vSTOCK), Float.parseFloat(vPESO), vPRESENTACION, vMARCA, vPROVEEDOR);
+                                        producto.desconectar();
                                         if (vresult.equals("S")) {
 
                                             System.out.println("<script>alert('Guardado');</script>");
@@ -85,13 +89,13 @@
                                         break;
 
                                     case "e":
-                                        vresult = proveedor.ModificarProveedor(vIDPROVEEDOR, vNOMBRE, vDIRECCION, vTELEFONO, vCORREO_ELECTRONICO, Date.valueOf(vFECHA_REGISTRO), vPAIS, vCEDULA_JURIDICA);
-                                        proveedor.desconectar();
+                                        vresult = producto.ModificarProductos(vIDPRODUCTO, vNOMBRE, vDESCRIPCION, Float.parseFloat(vPRECIO_UND), Integer.parseInt(vSTOCK), Float.parseFloat(vPESO), vPRESENTACION, vMARCA, vPROVEEDOR);
+                                        producto.desconectar();
                                         break;
 
                                     case "d":
-                                        vresult = proveedor.EliminarProveedor(vIDPROVEEDOR);
-                                        proveedor.desconectar();
+                                        vresult = producto.EliminarProductos(vIDPRODUCTO);
+                                        producto.desconectar();
                                         break;
 
                                     case "f":
@@ -106,14 +110,15 @@
                         } catch (Exception Ex) {
 
                             vresult = "";
-                            vIDPROVEEDOR = "";
+                            vIDPRODUCTO = "";
                             vNOMBRE = "";
-                            vDIRECCION = "";
-                            vTELEFONO = "";
-                            vCORREO_ELECTRONICO = "";
-                            vFECHA_REGISTRO = "";
-                            vPAIS = "";
-                            vCEDULA_JURIDICA = "";
+                            vDESCRIPCION = "";
+                            vPRECIO_UND = "";
+                            vSTOCK = "";
+                            vPESO = "";
+                            vPRESENTACION = "";
+                            vMARCA = "";
+                            vPROVEEDOR = "";
                             System.out.println("<script>alert('" + Ex + " " + vresult + "');</script>");
                         }
 
@@ -123,30 +128,32 @@
                         <table class="tg">
                             <tr>
                                 <td class="tg-0lax" colspan="6">
-                                    Datos del Proveedor
+                                    Datos de los Productos
                                 </td>
                             </tr>
                             <tr>
-                                <td class="tg-0lax"><label for="proveedor">IDProveedor</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtIDPROVEEDOR" value="<%=vIDPROVEEDOR%>" required></td>
+                                <td class="tg-0lax"><label for="IdProducti">IdProducto</label></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtIDPRODUCTO" value="<%=vIDPRODUCTO%>" required></td>
                                 <td class="tg-0lax"><label for="nombre">Nombre</label></td>
                                 <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtNOMBRE" value="<%=vNOMBRE%>" required></td>
-                                <td class="tg-0lax"><label for="dir">Dirección</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtDIRECCION" value="<%=vDIRECCION%>" required></td>
+                                <td class="tg-0lax"><label for="descripcion">Descripcion</label></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtDESCRIPCION" value="<%=vDESCRIPCION%>" required></td>
                             </tr>
                             <tr>
-                                <td class="tg-0lax"><label for="Tel">Teléfono</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtTELEFONO" value="<%= vTELEFONO%>" required></td>
-                                <td class="tg-0lax"><label for="correo">Correo Electrónico</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtCORREO_ELECTRONICO" value="<%=vCORREO_ELECTRONICO%>" required></td>
-                                <td class="tg-0lax"><label for="fecha">Fecha Registro</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="date" name="TxtFECHA_REGISTRO" value="<%= vFECHA_REGISTRO%>" required></td>
+                                <td class="tg-0lax"><label for="Tel">Precio Unid</label></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="float" name="TxtPRECIO_UND" value="<%= vPRECIO_UND%>" required></td>
+                                <td class="tg-0lax"><label for="correo">Stock</label></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="integer" name="TxtSTOCK" value="<%=vSTOCK%>" required></td>
+                                <td class="tg-0lax"><label for="Peso">Peso</label></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="float" name="TxtPESO" value="<%=vPESO%>" required></td>
                             </tr>
                             <tr>
-                                <td class="tg-0lax"><label for="pais">País</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtPAIS" value="<%=vPAIS%>" required></td>
-                                <td class="tg-0lax"><label for="ced">Cédula Jurídica</label></td>
-                                <td class="tg-0lax" colspan="3"><input id="rcorners1" type="text" name="TxtCEDULA_JURIDICA" value="<%=vCEDULA_JURIDICA%>" required></td>
+                                <td class="tg-0lax"><label for="Presentacion">Presentacion</label></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtPRESENTACION" value="<%=vPRESENTACION%>" required></td>
+                                <td class="tg-0lax"><label for="Marca">Marca</label></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtMARCA" value="<%=vMARCA%>" required></td>
+                                <td class="tg-0lax"><label for="Prov">Proveedor</label></td>
+                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtPROVEEDOR" value="<%=vPROVEEDOR%>" required></td>
                             </tr>
                             <tr>
                                 <td class="tg-0lax" colspan="6">
@@ -166,14 +173,15 @@
 
                         <thead>
                             <tr>
-                                <th class="tg-0lax">Id Proveedor</th>
+                                <th class="tg-0lax">IdProducto</th>
                                 <th class="tg-0lax">Nombre</th>
-                                <th class="tg-0lax">Dirección</th>
-                                <th class="tg-0lax">Teléfono</th>
-                                <th class="tg-0lax">Email</th>
-                                <th class="tg-0lax">Fech Reg.</th>
-                                <th class="tg-0lax">País</th>
-                                <th class="tg-0lax">Cédula Jurídica</th>
+                                <th class="tg-0lax">Descripcion</th>
+                                <th class="tg-0lax">Precio Unid</th>
+                                <th class="tg-0lax">Stock</th>
+                                <th class="tg-0lax">Peso</th>
+                                <th class="tg-0lax">Presentacion</th>
+                                <th class="tg-0lax">Marca</th>
+                                <th class="tg-0lax">Proveedor</th>
                                 <th class="tg-0lax">Acción</th>
                             </tr>
                         </thead>
@@ -182,43 +190,44 @@
                                 ResultSet rs;
 
                                 try {
-                                    ClsProveedor vProveedor = new ClsProveedor();
-                                    vProveedor.Conectar();
+                                    ClsProductos vProducto = new ClsProductos();
+                                    vProducto.Conectar();
 
-                                    if (vIDPROVEEDOR.equals("")) {
-                                        rs = vProveedor.buscarProveedor("a", "Lista");
+                                    if (vIDPRODUCTO.equals("")) {
+                                        rs = vProducto.buscarProductos("a", "Lista");
                                     } else if (request.getParameter("btnop").equals("Select")) {
-                                        rs = vProveedor.buscarProveedor(vIDPROVEEDOR, "C");
+                                        rs = vProducto.buscarProductos(vIDPRODUCTO, "C");
                                     } else if (request.getParameter("btnop").equals("f")) {
-                                        rs = vProveedor.buscarProveedor(vIDPROVEEDOR, "N");
+                                        rs = vProducto.buscarProductos(vIDPRODUCTO, "N");
                                     } else {
-                                        rs = vProveedor.buscarProveedor("a", "Lista");
+                                        rs = vProducto.buscarProductos("a", "Lista");
                                     }
 
                                     while (rs.next()) {
                             %>
                             <tr>
-                        <form name="formFila" action="frmMantenimientoProveedor.jsp" method="get">
-                            <td class="tg-0lax"><%= rs.getString("IDPROVEEDOR")%></td>
+                        <form name="formFila" action="frmMantenimientoProductos.jsp" method="get">
+                            <td class="tg-0lax"><%= rs.getString("IDPRODUCTO")%></td>
                             <td class="tg-0lax"><%= rs.getString("NOMBRE")%></td> 
-                            <td class="tg-0lax"><%= rs.getString("DIRECCION")%></td> 
-                            <td class="tg-0lax"><%= rs.getString("TELEFONO")%></td> 
-                            <td class="tg-0lax"><%= rs.getString("CORREO_ELECTRONICO")%></td> 
-                            <td class="tg-0lax"><%= rs.getDate("FECHA_REGISTRO")%></td> 
-                            <td class="tg-0lax"><%= rs.getString("PAIS")%></td> 
-                            <td class="tg-0lax"><%= rs.getString("CEDULA_JURIDICA")%></td> 
+                            <td class="tg-0lax"><%= rs.getString("DESCRIPCION")%></td> 
+                            <td class="tg-0lax"><%= rs.getFloat("PRECIO_UND")%></td> 
+                            <td class="tg-0lax"><%= rs.getInt("STOCK")%></td> 
+                            <td class="tg-0lax"><%= rs.getFloat("PESO")%></td> 
+                            <td class="tg-0lax"><%= rs.getString("PRESENTACION")%></td>
+                            <td class="tg-0lax"><%= rs.getString("MARCA")%></td> 
+                            <td class="tg-0lax"><%= rs.getString("PROVEEDOR")%></td> 
                             <td class="tg-0lax"><input type="submit" name="btnop" value="Select">                  
 
-                            <input type="submit" name="btnop" value="X"></td>
-                            <input type="hidden" name="TxtIDPROVEEDOR" value="<%=rs.getString("IDPROVEEDOR")%>">
+                                <input type="submit" name="btnop" value="X"></td>
+                            <input type="hidden" name="TxtIDPRODUCTO" value="<%=rs.getString("IDPRODUCTO")%>">
                             <input type="hidden" name="TxtNOMBRE" value="<%=rs.getString("NOMBRE")%>">
-                            <input type="hidden" name="TxtDIRECCION" value="<%=rs.getString("DIRECCION")%>">
-                            <input type="hidden" name="TxtTELEFONO" value="<%=rs.getString("TELEFONO")%>">
-                            <input type="hidden" name="TxtCORREO_ELECTRONICO" value="<%=rs.getString("CORREO_ELECTRONICO")%>">
-                            <input type="hidden" name="TxtFECHA_REGISTRO" value="<%=rs.getDate("FECHA_REGISTRO")%>">
-                            <input type="hidden" name="TxtPAIS" value="<%=rs.getString("PAIS")%>">
-                            <input type="hidden" name="TxtCEDULA_JURIDICA" value="<%=rs.getString("CEDULA_JURIDICA")%>">
-
+                            <input type="hidden" name="TxtDESCRIPCION" value="<%=rs.getString("DESCRIPCION")%>">
+                            <input type="hidden" name="TxtPRECIO_UND" value="<%=rs.getFloat("PRECIO_UND")%>">
+                            <input type="hidden" name="TxtSTOCK" value="<%=rs.getInt("STOCK")%>">
+                            <input type="hidden" name="TxtPESO" value="<%=rs.getFloat("PESO")%>">
+                            <input type="hidden" name="TxtPRESENTACION" value="<%=rs.getString("PRESENTACION")%>">
+                            <input type="hidden" name="TxtMARCA" value="<%=rs.getString("MARCA")%>">
+                            <input type="hidden" name="TxtPROVEEDOR" value="<%=rs.getString("PROVEEDOR")%>">
                         </form>
                         </tr>
                         <%

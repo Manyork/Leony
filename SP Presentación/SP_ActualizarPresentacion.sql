@@ -1,0 +1,9 @@
+CREATE PROCEDURE `StpActualizarPresentacion` ($IDPRESENTACION varchar(45),
+$DESCRIPCION varchar(45))
+BEGIN
+UPDATE `inventario`.`presentacion`
+SET
+`DESCRIPCION` = $DESCRIPCION
+WHERE `IDPRESENTACION` = $IDPRESENTACION;
+
+END$$

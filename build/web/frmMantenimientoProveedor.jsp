@@ -30,12 +30,12 @@
                 <div id="menubar">
                     <ul id="menu">
                         <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
-                        <li class="selected"><a href="index.html">Home</a></li>
+                        <li><a href="index.html">Home</a></li>
                         <li><a class="active" href="frmMantenimientoProveedor.jsp">PROVEEDORES</a></li>
-                        <li><a href="#productos">PRODUCTOS</a></li>
+                        <li><a href="frmMantenimientoProductos.jsp">PRODUCTOS</a></li>
                         <li><a href="#contact">DETALLES</a></li>
                         <li><a href="#marca">MARCA</a></li>
-                        <li><a href="#pedido">PEDIDO</a></li>
+                        <li><a href="frmMantenimientoClientes.jsp">CLIENTES</a></li>
                     </ul>
                 </div>
             </div>
@@ -45,28 +45,27 @@
                     <%
                         String vresult = "";
                         String vIDPROVEEDOR = "";
-                        String vNOMBRE =  "";
-                        String vDIRECCION =  "";
-                        String vTELEFONO =  "";
-                        String vCORREO_ELECTRONICO =  "";
-                        String vFECHA_REGISTRO =  "";
-                        String vPAIS =  "";
-                        String vCEDULA_JURIDICA =  "";
+                        String vNOMBRE = "";
+                        String vDIRECCION = "";
+                        String vTELEFONO = "";
+                        String vCORREO_ELECTRONICO = "";
+                        String vFECHA_REGISTRO = "";
+                        String vPAIS = "";
+                        String vCEDULA_JURIDICA = "";
 
                         try {
-                            
-                            
-                             vresult = "";
-                         vIDPROVEEDOR = request.getParameter("TxtIDPROVEEDOR");
-                         vNOMBRE = request.getParameter("TxtNOMBRE");
-                         vDIRECCION = request.getParameter("TxtDIRECCION");
-                         vTELEFONO = request.getParameter("TxtTELEFONO");
-                         vCORREO_ELECTRONICO = request.getParameter("TxtCORREO_ELECTRONICO");
-                         vFECHA_REGISTRO = request.getParameter("TxtFECHA_REGISTRO");
-                         vPAIS = request.getParameter("TxtPAIS");
-                         vCEDULA_JURIDICA = request.getParameter("TxtCEDULA_JURIDICA");
+
+                            vresult = "";
+                            vIDPROVEEDOR = request.getParameter("TxtIDPROVEEDOR");
+                            vNOMBRE = request.getParameter("TxtNOMBRE");
+                            vDIRECCION = request.getParameter("TxtDIRECCION");
+                            vTELEFONO = request.getParameter("TxtTELEFONO");
+                            vCORREO_ELECTRONICO = request.getParameter("TxtCORREO_ELECTRONICO");
+                            vFECHA_REGISTRO = request.getParameter("TxtFECHA_REGISTRO");
+                            vPAIS = request.getParameter("TxtPAIS");
+                            vCEDULA_JURIDICA = request.getParameter("TxtCEDULA_JURIDICA");
                             if (vIDPROVEEDOR.equals("null")) {
-                                        
+
                             } else {
                                 ClsProveedor proveedor = new ClsProveedor();
                                 proveedor.Conectar();
@@ -105,21 +104,21 @@
                             }
 
                         } catch (Exception Ex) {
-                            
+
                             vresult = "";
-                                        vIDPROVEEDOR = "";
-                                        vNOMBRE =  "";
-                                        vDIRECCION =  "";
-                                        vTELEFONO =  "";
-                                        vCORREO_ELECTRONICO =  "";
-                                        vFECHA_REGISTRO =  "";
-                                        vPAIS =  "";
-                                        vCEDULA_JURIDICA =  "";
-                                                       System.out.println("<script>alert('" + Ex + " " + vresult + "');</script>");
+                            vIDPROVEEDOR = "";
+                            vNOMBRE = "";
+                            vDIRECCION = "";
+                            vTELEFONO = "";
+                            vCORREO_ELECTRONICO = "";
+                            vFECHA_REGISTRO = "";
+                            vPAIS = "";
+                            vCEDULA_JURIDICA = "";
+                            System.out.println("<script>alert('" + Ex + " " + vresult + "');</script>");
                         }
 
                     %>
-            
+
                     <div class="tg-wrap">
                         <table class="tg">
                             <tr>
@@ -162,7 +161,7 @@
 
 
 
-              <div class="tg-wrap">
+                <div class="tg-wrap">
                     <table id="tg-CAk3z" class="tg">
 
                         <thead>
@@ -210,7 +209,7 @@
                             <td class="tg-0lax"><%= rs.getString("CEDULA_JURIDICA")%></td> 
                             <td class="tg-0lax"><input type="submit" name="btnop" value="Select">                  
 
-                                <input type="submit" name="btnop" value="X"></td>
+                            <input type="submit" name="btnop" value="X"></td>
                             <input type="hidden" name="TxtIDPROVEEDOR" value="<%=rs.getString("IDPROVEEDOR")%>">
                             <input type="hidden" name="TxtNOMBRE" value="<%=rs.getString("NOMBRE")%>">
                             <input type="hidden" name="TxtDIRECCION" value="<%=rs.getString("DIRECCION")%>">
