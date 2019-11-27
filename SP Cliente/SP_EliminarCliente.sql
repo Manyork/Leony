@@ -1,0 +1,7 @@
+DELIMITER $$
+USE `inventario`$$
+CREATE PROCEDURE `StpEliminarCliente`($CEDULA varchar(45))
+BEGIN
+DELETE FROM cliente
+WHERE CEDULA=$CEDULA;
+END$$
