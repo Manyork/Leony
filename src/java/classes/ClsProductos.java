@@ -12,33 +12,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //public class ClsProductos {
-    
-  public class ClsProductos extends ClsConexion{
-      
+public class ClsProductos extends ClsConexion {
+
     String IDPRODUCTO;
     String NOMBRE;
-    String DESCRIPCION; 
-    float PRECIO_UND; 
-    int STOCK; 
+    String DESCRIPCION;
+    float PRECIO_UND;
+    int STOCK;
     float PESO;
-    String PRESENTACION; 
+    String PRESENTACION;
     String MARCA;
     String PROVEEDOR;
-        
-    
+
     public ClsProductos() {
         super();
     }
-    
-    
-   public String GuardarProductos(String pIDPRODUCTO, String pNOMBRE, String pDESCRIPCION, float pPRECIO_UND , int pSTOCK, float pPESO, String pPRESENTACION, String pMARCA, String pPROVEEDOR) 
-      {
-         String Respuesta = "N";
+
+    public String GuardarProductos(String pIDPRODUCTO, String pNOMBRE, String pDESCRIPCION, float pPRECIO_UND, int pSTOCK, float pPESO, String pPRESENTACION, String pMARCA, String pPROVEEDOR) {
+        String Respuesta = "N";
         try {
             //se prepara la llamada al preocedimiento
             obj_Procedimiento = Conexion.prepareCall("{call StpInsertarProducto(?,?,?,?,?,?,?,?,?)}");
             // Se definen las entradas(parámetros) de los datos con sus caracteristicas
-            obj_Procedimiento.setString(1, pIDPRODUCTO);  
+            obj_Procedimiento.setString(1, pIDPRODUCTO);
             obj_Procedimiento.setString(2, pNOMBRE);
             obj_Procedimiento.setString(3, pDESCRIPCION);
             obj_Procedimiento.setFloat(4, pPRECIO_UND);
@@ -53,21 +49,18 @@ import java.util.logging.Logger;
             System.out.println("insertado exitosamente");
         } catch (SQLException ex) {
             Respuesta = ex.getMessage();
-           // Logger.getLogger(ClsFacturas.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(ClsFacturas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Respuesta;
     }
-   
-   
-   
-   public String ModificarProductos(String pIDPRODUCTO, String pNOMBRE, String pDESCRIPCION, float pPRECIO_UND , int pSTOCK, float pPESO, String pPRESENTACION, String pMARCA, String pPROVEEDOR) 
-      {
-         String Respuesta = "N";
+
+    public String ModificarProductos(String pIDPRODUCTO, String pNOMBRE, String pDESCRIPCION, float pPRECIO_UND, int pSTOCK, float pPESO, String pPRESENTACION, String pMARCA, String pPROVEEDOR) {
+        String Respuesta = "N";
         try {
             //se prepara la llamada al preocedimiento
             obj_Procedimiento = Conexion.prepareCall("{call StpActualizarProducto(?,?,?,?,?,?,?,?,?)}");
             // Se definen las entradas(parámetros) de los datos con sus caracteristicas
-           obj_Procedimiento.setString(1, pIDPRODUCTO);  
+            obj_Procedimiento.setString(1, pIDPRODUCTO);
             obj_Procedimiento.setString(2, pNOMBRE);
             obj_Procedimiento.setString(3, pDESCRIPCION);
             obj_Procedimiento.setFloat(4, pPRECIO_UND);
@@ -82,33 +75,31 @@ import java.util.logging.Logger;
             System.out.println("Modificado exitosamente");
         } catch (SQLException ex) {
             Respuesta = ex.getMessage();
-           // Logger.getLogger(ClsFacturas.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(ClsFacturas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Respuesta;
     }
-   
-   
-      public String EliminarProductos(String pIDPRODUCTOS) 
-      {
-         String Respuesta = "N";
+
+    public String EliminarProductos(String pIDPRODUCTOS) {
+        String Respuesta = "N";
         try {
             //se prepara la llamada al preocedimiento
             obj_Procedimiento = Conexion.prepareCall("{call StpEliminarProductos(?)}");
             // Se definen las entradas(parámetros) de los datos con sus caracteristicas
-            obj_Procedimiento.setString(1, pIDPRODUCTOS);  
-           
+            obj_Procedimiento.setString(1, pIDPRODUCTOS);
+
             // se ejecuta
             obj_Procedimiento.execute();
             Respuesta = "S";
             System.out.println("Eliminado exitosamente");
         } catch (SQLException ex) {
             Respuesta = ex.getMessage();
-           // Logger.getLogger(ClsFacturas.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(ClsFacturas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Respuesta;
     }
-   
-        public ResultSet buscarProductos(String pBuscar, String pTipoBusqueda) {
+
+    public ResultSet buscarProductos(String pBuscar, String pTipoBusqueda) {
         try {
             //se prepara la llamada al preocedimiento
             obj_Procedimiento = Conexion.prepareCall("{CALL StpBuscarProducto(?,?)}");
@@ -117,12 +108,10 @@ import java.util.logging.Logger;
             obj_Procedimiento.setString(2, pTipoBusqueda);
             // se ejecuta retornando el resultado en Registro
             Registro = obj_Procedimiento.executeQuery();
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(ClsProductos.class.getName()).log(Level.SEVERE, null, ex);
         }
-
 
         return Registro;
     }
@@ -199,7 +188,4 @@ import java.util.logging.Logger;
         this.PROVEEDOR = PROVEEDOR;
     }
 
- 
-
-    
 }

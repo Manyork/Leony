@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="classes.ClsPresentacion"%>
+<%@page import="classes.ClsMarca"%>
 <%@page import="classes.ClsProductos"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="classes.ClsProveedor"%>
@@ -64,9 +66,9 @@
                             vPRECIO_UND = request.getParameter("TxtPRECIO_UND");
                             vSTOCK = request.getParameter("TxtSTOCK");
                             vPESO = request.getParameter("TxtPESO");
-                            vPRESENTACION = request.getParameter("TxtPRESENTACION");
-                            vMARCA = request.getParameter("TxtMARCA");
-                            vPROVEEDOR = request.getParameter("TxtPROVEEDOR");
+                            vPRESENTACION = request.getParameter("optPresentacion");
+                            vMARCA = request.getParameter("optMarca");
+                            vPROVEEDOR = request.getParameter("optProveedor");
 
                             if (vIDPRODUCTO.equals("null")) {
 
@@ -149,11 +151,56 @@
                             </tr>
                             <tr>
                                 <td class="tg-0lax"><label for="Presentacion">Presentacion</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtPRESENTACION" value="<%=vPRESENTACION%>" required></td>
-                                <td class="tg-0lax"><label for="Marca">Marca</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtMARCA" value="<%=vMARCA%>" required></td>
+                                <td class="tg-0lax"><select name='optPresentacion'>
+                                    <%
+                                    ResultSet presRs;
+                                    try {
+                                        ClsPresentacion vPres = new ClsPresentacion();
+                                        vPres.Conectar();
+                                        presRs = vPres.buscarPresentacion();
+                                        while (presRs.next()) {
+                                            out.print("<option value='" + presRs.getString("IDPRESENTACION") + "'>" + presRs.getString("IDPRESENTACION") + " - " + presRs.getString("DESCRIPCION") + "</option>");
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println(e);
+                                    }
+                                    %>
+                                    </select></td>
+
+
                                 <td class="tg-0lax"><label for="Prov">Proveedor</label></td>
-                                <td class="tg-0lax"><input id="rcorners1" type="text" name="TxtPROVEEDOR" value="<%=vPROVEEDOR%>" required></td>
+                                <td class="tg-0lax"><select name='optProveedor'>
+                                    <%
+                                    ResultSet provRs;
+                                    try {
+                                        ClsProveedor vProv = new ClsProveedor();
+                                        vProv.Conectar();
+                                        provRs = vProv.buscarProveedor("", "");
+                                        while (provRs.next()) {
+                                            out.print("<option value='" + provRs.getString("IDPROVEEDOR") + "'>" + provRs.getString("IDPROVEEDOR") + " - " + provRs.getString("NOMBRE") + "</option>");
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println(e);
+                                    }
+                                    %>
+                                    </select>
+                                    </td>
+                                    <td class="tg-0lax"><label for="Marca">Marca</label></td>
+                                <td class="tg-0lax"> <select name='optMarca'> <%
+                                    ResultSet marcaRs;
+                                    try {
+                                        ClsMarca vMarca = new ClsMarca();
+                                        vMarca.Conectar();
+                                        marcaRs = vMarca.buscarMarcas();
+                                        while (marcaRs.next()) {
+                                            out.print("<option value='" + marcaRs.getString("IDMARCA") + "'>" + marcaRs.getString("IDMARCA") + " - " + marcaRs.getString("NOMBRE") + "</option>");
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println(e);
+                                    }
+                                        %></select>
+
+                                </td>
                             </tr>
                             <tr>
                                 <td class="tg-0lax" colspan="6">
@@ -186,8 +233,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%
-                                ResultSet rs;
+                            <%                                ResultSet rs;
 
                                 try {
                                     ClsProductos vProducto = new ClsProductos();
@@ -204,7 +250,12 @@
                                     }
 
                                     while (rs.next()) {
+
                             %>
+
+
+
+
                             <tr>
                         <form name="formFila" action="frmMantenimientoProductos.jsp" method="get">
                             <td class="tg-0lax"><%= rs.getString("IDPRODUCTO")%></td>
@@ -235,7 +286,10 @@
                             } catch (Exception Ex) {
                                 System.out.println(" " + Ex.getMessage());
                             }
-                        %>
+                        %>                        
+
+
+
                         </tbody>
 
                     </table>
